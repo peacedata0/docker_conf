@@ -47,3 +47,12 @@ ENV SAP_DATABASE sap_production
 ENV SAP_USERNAME sap_user
 ENV SAP_DATABASE_PASSWORD VVh@t5MyN@m3?
 
+# readme
+
+rake db:drop db:create db:migrate
+
+rake key_codes_definitions:parse:xml_codes
+
+rake partners:import
+
+rake product_code:import
