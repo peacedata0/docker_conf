@@ -37,7 +37,13 @@ services:
             COMPOSE_CONVERT_WINDOWS_PATHS: "true"
             COMPOSE_INTERACTIVE_NO_CLI: "true"
             DOCKER_HOST: "sap"
-            ASPNETCORE_ENVIRONMENT: "Production"
+            RAILS_ENV: "Production"
+            RAKE_ENV: "Production"
+            SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+            SAP_DATABASE_HOST: ${SAP_DATABASE_HOST}
+            SAP_DATABASE: ${SAP_DATABASE}
+            SAP_USERNAME: ${SAP_USERNAME}
+            SAP_DATABASE_PASSWORD: ${SAP_DATABASE_PASSWORD}
             BASE_URL: 'https://sap.ml'
         restart: always
         networks:
@@ -68,7 +74,7 @@ services:
             - ./mysql-data:/var/lib/mysql
         networks:
            - sap-network
-           
+
 networks:
     sap-network:
       driver: bridge
