@@ -40,10 +40,10 @@ services:
             RAILS_ENV: "Production"
             RAKE_ENV: "Production"
             SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-            SAP_DATABASE_HOST: ${SAP_DATABASE_HOST}
-            SAP_DATABASE: ${SAP_DATABASE}
-            SAP_USERNAME: ${SAP_USERNAME}
-            SAP_DATABASE_PASSWORD: ${SAP_DATABASE_PASSWORD}
+            SAP_DATABASE_HOST: ${MYSQL_HOST}
+            SAP_DATABASE_NAME: ${MYSQL_DATABASE}
+            SAP_DATABASE_USER: ${MYSQL_USER}
+            SAP_DATABASE_PASSWORD: ${MYSQL_PASSWORD}
             BASE_URL: 'https://sap-test.ml'
         restart: always
         networks:
