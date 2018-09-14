@@ -1,0 +1,49 @@
+  app:
+    tty: true # Enables debugging capabilities when attached to this container.
+    container_name: "Teplo_app"
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    labels:
+      maintainer: "peace_data"
+      e-mail: "peace_data@cryptolab.nl"
+      version: "1.0"
+      description: "Ruby on Rails container, Teplo project - production mode, RubyCon LLC"
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - RAILS_ROOT=${RAILS_ROOT}
+      - RAILS_ENV=${RAILS_ENV}
+      - RAKE_ENV=${RAKE_ENV}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - DATABASE_URL=${DATABASE_URL}
+      - TEPLO_DATABASE_HOST=${TEPLO_DATABASE_HOST}
+      - TEPLO_DATABASE=${TEPLO_DATABASE}
+      - TEPLO_USERNAME=${TEPLO_USERNAME}
+      - TEPLO_DATABASE_PASSWORD=${TEPLO_DATABASE_PASSWORD}
+    depends_on:
+      - db
+    links:
+      - db
+    expose:
+      - "3000"
+    ports:
+      - 3001:3000
+    volumes:
+      - .:/var/www/teplo
+    networks:
+      - teplo-network
+
+
+      RUN bundle exec rake assets:clean \
+    && bundle exec rake assets:precompile \
+    && bundle exec rake db:migrate \
+    && bundle exec rake db:migrate
+
+
+ENV SAP_DATABASE_HOST db
+ENV SAP_DATABASE sap_production
+ENV SAP_USERNAME sap_user
+ENV SAP_DATABASE_PASSWORD VVh@t5MyN@m3?
+
