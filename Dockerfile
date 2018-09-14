@@ -11,7 +11,7 @@ RUN apt-key add /tmp/yarn-pubkey.gpg && rm /tmp/yarn-pubkey.gpg
 RUN echo 'deb http://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
 
 RUN true \
-    && apt-get update -qq \
+    && apt-get update \
     && apt-get install -y build-essential \
     libpq-dev \
     nodejs \
