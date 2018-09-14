@@ -11,7 +11,6 @@ RUN apt-key add /tmp/yarn-pubkey.gpg && rm /tmp/yarn-pubkey.gpg
 RUN echo 'deb http://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
 
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - 
-#    && apt-get install -y nodejs
 
 RUN true \
     && apt-get update \

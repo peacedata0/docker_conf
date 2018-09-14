@@ -9,7 +9,7 @@ services:
             - sap
         restart: always
         environment:
-            ACCESS_LOG: 'off'
+            ACCESS_LOG: 'on'
             DOMAINS: 'sap-new.ml -> http://sap:3000'
             STAGE: 'production'
             FORCE_RENEW: 'true'
