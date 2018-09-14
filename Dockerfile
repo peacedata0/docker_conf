@@ -1,4 +1,4 @@
-FROM ruby:2.5.1
+FROM ruby:2.4.1
 
 LABEL maintainer "peace_data <peace_data@cocaine.ninja>" \
       description "Ruby on Rails project - SAP, RybyCon LLC"
