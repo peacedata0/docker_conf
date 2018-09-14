@@ -40,4 +40,7 @@ RUN bundle install
 COPY . .
 
 EXPOSE 3000
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+
+RUN ["chmod", "+x", "/var/www/sap/entrypoint.sh"]
+
+ENTRYPOINT [ "/var/www/sap/entrypoint.sh" ]

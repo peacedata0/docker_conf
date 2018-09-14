@@ -38,8 +38,12 @@
 
       RUN bundle exec rake assets:clean \
     && bundle exec rake assets:precompile \
+    && bundle exec rake db:drop \
+    && bundle exec rake db:create \
     && bundle exec rake db:migrate \
-    && bundle exec rake db:migrate
+    && bundle exec rake key_codes_definitions:parse:xml_codes \
+    && bundle exec rake partners:import \
+    && bundle exec rake product_code:import
 
 
 ENV SAP_DATABASE_HOST db
@@ -56,3 +60,5 @@ rake key_codes_definitions:parse:xml_codes
 rake partners:import
 
 rake product_code:import
+
+#CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
