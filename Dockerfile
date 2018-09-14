@@ -14,7 +14,7 @@ RUN true \
     && apt-get update -qq \
     && apt-get install -y build-essential \
     libpq-dev \
-    nodejs \
+    nodejs npm \
     git ghostscript \
     imagemagick libc6 libffi6 libgcc1 libgmp-dev default-libmysqlclient-dev \
     libncurses5 libpq5 libreadline-dev libssl1.0-dev libstdc++6 libtinfo5 \
@@ -37,7 +37,9 @@ ENV RAKE_ENV production
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 RUN bundle install \
-    && npm install
+    && npm install -g npm \
+    && npm install \
+    && npm install jquery
 
 # Adding project files
 COPY . .
