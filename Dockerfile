@@ -12,7 +12,7 @@ RUN echo 'deb http://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list
 
 RUN true \
     && apt-get update \
-    && apt-get install -y build-essential \
+    && apt-get install -y build-essential software-properties-common \
     libpq-dev \
     nodejs \
     git ghostscript \
