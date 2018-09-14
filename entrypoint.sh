@@ -1,5 +1,10 @@
 #!/bin/bash
 
+bundle install
+npm install -g npm
+npm install
+npm install jquery
+
 export RAILS_ENV=production
 
 rake assets:clean
