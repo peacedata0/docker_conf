@@ -37,8 +37,8 @@ services:
             COMPOSE_CONVERT_WINDOWS_PATHS: "true"
             COMPOSE_INTERACTIVE_NO_CLI: "true"
             DOCKER_HOST: "sap"
-            RAILS_ENV: "Production"
-            RAKE_ENV: "Production"
+            RAILS_ENV: "production"
+            RAKE_ENV: "production"
             SECRET_KEY_BASE: ${SECRET_KEY_BASE}
             SAP_SECRET_KEY: ${SAP_SECRET_KEY}
             SAP_DATABASE_HOST: ${MYSQL_HOST}
