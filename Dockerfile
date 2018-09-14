@@ -10,10 +10,13 @@ ADD https://dl.yarnpkg.com/debian/pubkey.gpg /tmp/yarn-pubkey.gpg
 RUN apt-key add /tmp/yarn-pubkey.gpg && rm /tmp/yarn-pubkey.gpg
 RUN echo 'deb http://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
 
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - 
+#    && apt-get install -y nodejs
+
 RUN true \
     && apt-get update \
     && apt-get install -y --no-install-recommends build-essential software-properties-common \
-    libpq-dev \
+    libpq-dev gcc g++ make \
     nodejs \
     git ghostscript \
     imagemagick libc6 libffi6 libgcc1 libgmp-dev default-libmysqlclient-dev \
@@ -22,13 +25,18 @@ RUN true \
     && apt-get clean \
     && true
 
-RUN curl -L https://www.npmjs.com/install.sh | sh
+ADD https://www.npmjs.com/install.sh /tmp/install.sh
+RUN chmod +x /tmp/install.sh \
+    && ./tmp/install.sh
+
 # Set an environment variable where the Rails app is installed to inside of Docker image
 ENV RAILS_ROOT /var/www/sap
 RUN mkdir -p $RAILS_ROOT
 
 # Set working directory
 WORKDIR $RAILS_ROOT
+
+RUN yarn add npm:latest
 
 # Setting env up
 ENV RAILS_ENV production
@@ -39,7 +47,7 @@ COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
 RUN bundle install
 RUN npm install -g npm
-RUN npm install
+RUN npm install jquery
 
 # Adding project files
 COPY . .

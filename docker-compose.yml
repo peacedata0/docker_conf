@@ -9,9 +9,12 @@ services:
             - sap
         restart: always
         environment:
-            DOMAINS: 'sap-test.ml -> http://sap:3000'
+            ACCESS_LOG: 'off'
+            DOMAINS: 'sap-new.ml -> http://sap:3000'
             STAGE: 'production'
             FORCE_RENEW: 'true'
+        volumes:
+           - ./ssl_certs:/var/lib/https-portal
         networks:
            - sap-network
 
@@ -46,7 +49,7 @@ services:
             SAP_DATABASE_USER: ${MYSQL_USER}
             SAP_DATABASE_PASSWORD: ${MYSQL_PASSWORD}
             WEB_CONCURRENCY: 4
-            BASE_URL: 'https://sap-test.ml'
+            BASE_URL: 'https://sap-new.ml'
         restart: always
         networks:
            - sap-network
