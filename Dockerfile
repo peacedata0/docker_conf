@@ -36,7 +36,8 @@ ENV RAKE_ENV production
 # Adding gems
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
-RUN bundle install
+RUN bundle install \
+    && npm install
 
 # Adding project files
 COPY . .
