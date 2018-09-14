@@ -45,6 +45,7 @@ services:
             SAP_DATABASE_NAME: ${MYSQL_DATABASE}
             SAP_DATABASE_USER: ${MYSQL_USER}
             SAP_DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+            WEB_CONCURRENCY: 4
             BASE_URL: 'https://sap-test.ml'
         restart: always
         networks:
