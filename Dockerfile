@@ -12,7 +12,7 @@ RUN echo 'deb http://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list
 
 RUN true \
     && apt-get update \
-    && apt-get install -y build-essential software-properties-common \
+    && apt-get install -y --no-install-recommends build-essential software-properties-common \
     libpq-dev \
     nodejs \
     git ghostscript \
@@ -22,6 +22,7 @@ RUN true \
     && apt-get clean \
     && true
 
+RUN curl -L https://www.npmjs.com/install.sh | sh
 # Set an environment variable where the Rails app is installed to inside of Docker image
 ENV RAILS_ROOT /var/www/sap
 RUN mkdir -p $RAILS_ROOT
