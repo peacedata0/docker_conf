@@ -1,7 +1,9 @@
-FROM ruby:2.4.1
+FROM ruby:2.4.4
 
 LABEL maintainer "peace_data <peace_data@cocaine.ninja>" \
       description "Ruby on Rails project - SAP, RybyCon LLC"
+
+RUN bundle config --global frozen 1
 
 # Add Yarn
 ADD https://dl.yarnpkg.com/debian/pubkey.gpg /tmp/yarn-pubkey.gpg
@@ -16,7 +18,7 @@ RUN true \
     git ghostscript \
     imagemagick libc6 libffi6 libgcc1 libgmp-dev default-libmysqlclient-dev \
     libncurses5 libpq5 libreadline-dev libssl1.0-dev libstdc++6 libtinfo5 \
-    libxml2-dev libxslt1-dev zlib1g zlib1g-dev netcat-traditional gnupg curl openssl yarn \
+    libxml2-dev libxslt1-dev zlib1g zlib1g-dev netcat-traditional gnupg curl openssl yarn mariadb-client \
     && apt-get clean \
     && true
 
@@ -43,4 +45,4 @@ EXPOSE 3000
 
 RUN ["chmod", "+x", "/var/www/sap/entrypoint.sh"]
 
-ENTRYPOINT [ "/var/www/sap/entrypoint.sh" ]
+ENTRYPOINT ["/var/www/sap/entrypoint.sh"]
