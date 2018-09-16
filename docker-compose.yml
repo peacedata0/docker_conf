@@ -1,6 +1,7 @@
 version: "3"
 services:
     https-portal:
+        container_name: nginx_le_ssl
         image: steveltn/https-portal
         ports:
             - "80:80"
