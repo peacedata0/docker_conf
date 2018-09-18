@@ -1,0 +1,86 @@
+version: "3"
+services:
+    https-portal:
+        container_name: nginx_le_ssl
+        image: steveltn/https-portal
+        ports:
+            - "80:80"
+            - "443:443"
+        links:
+            - sap
+        restart: always
+        environment:
+            ACCESS_LOG: 'on'
+            DOMAINS: 'sap-new.ml -> http://sap:3000'
+            STAGE: 'production'
+            FORCE_RENEW: 'true'
+        volumes:
+           - ./ssl_certs:/var/lib/https-portal
+        networks:
+           - sap-network
+
+    sap:
+        container_name: SAP_Project 
+        build:
+            context: .
+            dockerfile: Dockerfile
+        labels:
+            maintainer: "peace_data"
+            e-mail: "peace_data@cryptolab.nl"
+            version: "1.0"
+            description: "Ruby on Rails project - SAP, RybyCon LLC"
+        expose:
+            - "3000"
+        ports:
+            - "3000:3000"
+        depends_on:
+            - mariadb
+        links:
+            - mariadb
+        environment:
+            COMPOSE_CONVERT_WINDOWS_PATHS: "true"
+            COMPOSE_INTERACTIVE_NO_CLI: "true"
+            DOCKER_HOST: "sap"
+            RAILS_ENV: "production"
+            RAKE_ENV: "production"
+            SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+            SAP_SECRET_KEY: ${SAP_SECRET_KEY}
+            SAP_DATABASE_HOST: ${MYSQL_HOST}
+            SAP_DATABASE_NAME: ${MYSQL_DATABASE}
+            SAP_DATABASE_USER: ${MYSQL_USER}
+            SAP_DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+            WEB_CONCURRENCY: 4
+            BASE_URL: 'https://sap-new.ml'
+        restart: always
+        networks:
+           - sap-network
+        volumes:
+           - .:/var/www/sap
+
+    mariadb:
+        image: mariadb:${MYSQL_VERSION}
+        container_name: ${MYSQL_HOST}
+        labels:
+            maintainer: "peace_data"
+            e-mail: "peace_data@cryptolab.nl"
+            version: "1.0"
+            description: "Ruby on Rails project - SAP, RybyCon LLC"
+        restart: always
+        env_file:
+            - .env
+        ports:
+            - "3307:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        command: --character-set-server=utf8 --collation-server=utf8_general_ci
+        volumes:
+            - ./mariadb-data:/var/lib/mysql
+        networks:
+           - sap-network
+
+networks:
+    sap-network:
+      driver: bridge

@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.16.0 (0c01309)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: https-portal
+  name: https-portal
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: https-portal
+    spec:
+      containers:
+      - env:
+        - name: ACCESS_LOG
+          value: "on"
+        - name: DOMAINS
+          value: sap-new.ml -> http://sap:3000
+        - name: FORCE_RENEW
+          value: "true"
+        - name: STAGE
+          value: production
+        image: steveltn/https-portal
+        name: nginx_le_ssl
+        ports:
+        - containerPort: 80
+        - containerPort: 443
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/lib/https-portal
+          name: https-portal-claim0
+      restartPolicy: Always
+      volumes:
+      - name: https-portal-claim0
+        persistentVolumeClaim:
+          claimName: https-portal-claim0
+status: {}

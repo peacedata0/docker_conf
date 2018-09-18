@@ -1,0 +1,60 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  annotations:
+    description: Ruby on Rails project - SAP, RybyCon LLC
+    e-mail: peace_data@cryptolab.nl
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.16.0 (0c01309)
+    maintainer: peace_data
+    version: "1.0"
+  creationTimestamp: null
+  labels:
+    io.kompose.service: sap
+  name: sap
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: sap
+    spec:
+      containers:
+      - env:
+        - name: BASE_URL
+          value: https://sap-new.ml
+        - name: COMPOSE_CONVERT_WINDOWS_PATHS
+          value: "true"
+        - name: COMPOSE_INTERACTIVE_NO_CLI
+          value: "true"
+        - name: DOCKER_HOST
+          value: sap
+        - name: RAILS_ENV
+          value: production
+        - name: RAKE_ENV
+          value: production
+        - name: SAP_DATABASE_HOST
+        - name: SAP_DATABASE_NAME
+        - name: SAP_DATABASE_PASSWORD
+        - name: SAP_DATABASE_USER
+        - name: SAP_SECRET_KEY
+        - name: SECRET_KEY_BASE
+        - name: WEB_CONCURRENCY
+          value: "4"
+        image: sap
+        name: SAP_Project
+        ports:
+        - containerPort: 3000
+        resources: {}
+        volumeMounts:
+        - mountPath: /var/www/sap
+          name: sap-claim0
+      restartPolicy: Always
+      volumes:
+      - name: sap-claim0
+        persistentVolumeClaim:
+          claimName: sap-claim0
+status: {}
