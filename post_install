@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cd /var/www/sap/
+
+sed -e "s/rake db:drop DISABLE_DATABASE_ENVIRONMENT_CHECK=1//g" -i entrypoint.sh
+sed -e "s/rake db:create//g" -i entrypoint.sh
+sed -e "s/rake key_codes_definitions:parse:xml_codes//g" -i entrypoint.sh
+sed -e "s/rake partners:import//g" -i entrypoint.sh
+sed -e "s/rake product_code:import//g" -i entrypoint.sh
+sed -e "s/bash $PWD/post_install//g" -i entrypoint.sh
+
+rm -rf -- "$0"
