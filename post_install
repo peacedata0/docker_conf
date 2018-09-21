@@ -7,6 +7,6 @@ sed -e "s/rake db:create//g" -i entrypoint.sh
 sed -e "s/rake key_codes_definitions:parse:xml_codes//g" -i entrypoint.sh
 sed -e "s/rake partners:import//g" -i entrypoint.sh
 sed -e "s/rake product_code:import//g" -i entrypoint.sh
-sed -i '$ d' entrypoint.sh
+sed -i '31 d' entrypoint.sh
 
 rm -rf -- "$0"
