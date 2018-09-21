@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep 20
+
 cd /var/www/sap/
 
 

@@ -10,8 +10,8 @@ services:
             - sap
         restart: always
         environment:
-            ACCESS_LOG: 'on'
-            DOMAINS: 'sap-new.ml -> http://sap:3000'    # Please change this (URL) <- "your_domain.name" 
+            ACCESS_LOG: 'off'
+            DOMAINS: 'sap-test.gq -> http://sap:3000'    # Please change this (URL) <- "your_domain.name" 
             STAGE: 'production'
             FORCE_RENEW: 'true'
         volumes:
@@ -30,9 +30,9 @@ services:
             version: "1.0"
             description: "Project - SAP, Ruby on Rails, RybyCon LLC"
         expose:
-            - "3001"
+            - "3000"
         ports:
-            - "3001:3000"
+            - "3000:3000"
         depends_on:
             - mariadb
         links:
@@ -46,12 +46,13 @@ services:
             SECRET_KEY_BASE: ${SECRET_KEY_BASE}
             SAP_SECRET_KEY: ${SAP_SECRET_KEY}
             SAP_DATABASE_HOST: ${MYSQL_HOST}
+            SAP_DATABASE_PORT: ${MYSQL_PORT}
             SAP_DATABASE_NAME: ${MYSQL_DATABASE}
             SAP_DATABASE_USER: ${MYSQL_USER}
             SAP_DATABASE_PASSWORD: ${MYSQL_PASSWORD}
             RAILS_SERVE_STATIC_FILES: "true"
             WEB_CONCURRENCY: 4
-            BASE_URL: 'https://sap-new.ml'             # Please change this (URL) <- "your_domain.name"
+            BASE_URL: 'https://sap-test.gq'             # Please change this (URL) <- "your_domain.name"
         restart: always
         networks:
            - sap-network
@@ -70,9 +71,9 @@ services:
         env_file:
             - .env
         expose:
-            - "3308"
+            - "3306"
         ports:
-            - "3308:3306"
+            - "3306:3306"
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
