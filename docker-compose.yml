@@ -11,7 +11,7 @@ services:
         restart: always
         environment:
             ACCESS_LOG: 'on'
-            DOMAINS: 'sap-new.ml -> http://sap:3000'
+            DOMAINS: 'sap-new.ml -> http://sap:3000'    # Please change this (URL) <- "your_domain.name" 
             STAGE: 'production'
             FORCE_RENEW: 'true'
         volumes:
@@ -28,11 +28,11 @@ services:
             maintainer: "peace_data"
             e-mail: "peace_data@cryptolab.nl"
             version: "1.0"
-            description: "Ruby on Rails project - SAP, RybyCon LLC"
+            description: "Project - SAP, Ruby on Rails, RybyCon LLC"
         expose:
-            - "3000"
+            - "3001"
         ports:
-            - "3000:3000"
+            - "3001:3000"
         depends_on:
             - mariadb
         links:
@@ -49,8 +49,9 @@ services:
             SAP_DATABASE_NAME: ${MYSQL_DATABASE}
             SAP_DATABASE_USER: ${MYSQL_USER}
             SAP_DATABASE_PASSWORD: ${MYSQL_PASSWORD}
+            RAILS_SERVE_STATIC_FILES: "true"
             WEB_CONCURRENCY: 4
-            BASE_URL: 'https://sap-new.ml'
+            BASE_URL: 'https://sap-new.ml'             # Please change this (URL) <- "your_domain.name"
         restart: always
         networks:
            - sap-network
@@ -64,12 +65,14 @@ services:
             maintainer: "peace_data"
             e-mail: "peace_data@cryptolab.nl"
             version: "1.0"
-            description: "Ruby on Rails project - SAP, RybyCon LLC"
+            description: "Project - SAP, Ruby on Rails, RybyCon LLC"
         restart: always
         env_file:
             - .env
+        expose:
+            - "3308"
         ports:
-            - "3307:3306"
+            - "3308:3306"
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
