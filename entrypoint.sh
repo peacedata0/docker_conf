@@ -28,5 +28,5 @@ rake key_codes_definitions:parse:xml_codes
 rake partners:import
 rake product_code:import
 
-bash /var/www/sap/post_install
 bash /var/www/sap/puma_start
+bash /var/www/sap/post_install

@@ -93,6 +93,7 @@ USER peace_data
 EXPOSE 3000
 
 RUN chmod +x /var/www/sap/entrypoint.sh \
-    && chmod +x /var/www/sap/post_install
+    && chmod +x /var/www/sap/post_install \
+    && chmod +x /var/www/sap/puma_start
 
 ENTRYPOINT [ "/var/www/sap/entrypoint.sh" ]
