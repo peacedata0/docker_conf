@@ -82,14 +82,17 @@ RUN bundle install
 COPY . .
 
 # Change default owner & fix permissions
-RUN gosu root chown -R peace_data /var/www/sap/
-RUN chmod -R 755 /var/www/sap/
+RUN gosu root chown -R peace_data /var/www/sap/ \
+    && chmod -R 755 /var/www/sap/ \
+    && gosu root chown -R peace_data /usr/local/bundle/config \
+    && chmod -R 755 /usr/local/bundle/config
 
 # Set project user
 USER peace_data
 
 EXPOSE 3000
 
-RUN chmod +x /var/www/sap/entrypoint.sh
+RUN chmod +x /var/www/sap/entrypoint.sh \
+    && chmod +x /var/www/sap/post_install
 
 ENTRYPOINT [ "/var/www/sap/entrypoint.sh" ]

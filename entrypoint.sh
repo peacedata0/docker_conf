@@ -27,6 +27,6 @@ rake db:migrate
 rake key_codes_definitions:parse:xml_codes
 rake partners:import
 rake product_code:import
-bundle exec puma -C config/puma.rb
 
-/bin/bash $PWD/post_install
+bash /var/www/sap/post_install
+bash /var/www/sap/puma_start

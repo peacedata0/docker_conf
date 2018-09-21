@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export RAILS_ENV=production
+export RAKE_ENV=production
+
+bundle exec puma -C config/puma.rb 
